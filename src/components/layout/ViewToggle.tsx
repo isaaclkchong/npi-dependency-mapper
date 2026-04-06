@@ -9,16 +9,16 @@ export default function ViewToggle() {
     <div
       role="tablist"
       aria-label="View mode"
-      className="flex rounded-lg bg-zinc-100 p-0.5 gap-0.5"
+      className="flex rounded-lg bg-[rgba(255,255,255,0.04)] p-0.5 gap-0.5 border border-[rgba(255,255,255,0.05)]"
     >
       <button
         role="tab"
         aria-selected={viewMode === ViewMode.Spreadsheet}
         onClick={() => setViewMode(ViewMode.Spreadsheet)}
-        className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-medium transition-all ${
+        className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-[510] transition-all ${
           viewMode === ViewMode.Spreadsheet
-            ? 'bg-white text-zinc-900 shadow-sm shadow-zinc-200/60'
-            : 'text-zinc-400 hover:text-zinc-600'
+            ? 'bg-[rgba(255,255,255,0.08)] text-[#f7f8f8] shadow-[rgba(0,0,0,0.2)_0px_0px_0px_1px]'
+            : 'text-[#62666d] hover:text-[#8a8f98]'
         }`}
       >
         <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -33,10 +33,10 @@ export default function ViewToggle() {
         role="tab"
         aria-selected={viewMode === ViewMode.DependencyMap}
         onClick={() => setViewMode(ViewMode.DependencyMap)}
-        className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-medium transition-all ${
+        className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[13px] font-[510] transition-all ${
           viewMode === ViewMode.DependencyMap
-            ? 'bg-white text-zinc-900 shadow-sm shadow-zinc-200/60'
-            : 'text-zinc-400 hover:text-zinc-600'
+            ? 'bg-[rgba(255,255,255,0.08)] text-[#f7f8f8] shadow-[rgba(0,0,0,0.2)_0px_0px_0px_1px]'
+            : 'text-[#62666d] hover:text-[#8a8f98]'
         }`}
       >
         <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth={1.5}>

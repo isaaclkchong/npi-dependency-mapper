@@ -5,24 +5,17 @@ import { TaskStatus } from '@/types'
 import PhaseBadge from '@/components/spreadsheet/PhaseBadge'
 
 const STATUS_DOT: Record<TaskStatus, string> = {
-  [TaskStatus.NotStarted]: 'bg-zinc-300',
-  [TaskStatus.InProgress]: 'bg-blue-400',
-  [TaskStatus.Complete]: 'bg-emerald-400',
-  [TaskStatus.Blocked]: 'bg-red-400',
-}
-
-const STATUS_ICONS: Record<TaskStatus, string> = {
-  [TaskStatus.NotStarted]: '●',
-  [TaskStatus.InProgress]: '▶',
-  [TaskStatus.Complete]: '✓',
-  [TaskStatus.Blocked]: '⚠',
+  [TaskStatus.NotStarted]: 'bg-[#62666d]',
+  [TaskStatus.InProgress]: 'bg-[#7170ff]',
+  [TaskStatus.Complete]: 'bg-[#27a644]',
+  [TaskStatus.Blocked]: 'bg-[#ef4444]',
 }
 
 const PHASE_BORDER: Record<string, string> = {
-  EVT: 'border-l-sky-400',
-  DVT: 'border-l-violet-400',
-  PVT: 'border-l-amber-400',
-  MP: 'border-l-emerald-400',
+  EVT: 'border-l-[#38bdf8]',
+  DVT: 'border-l-[#a78bfa]',
+  PVT: 'border-l-[#fbbf24]',
+  MP: 'border-l-[#10b981]',
 }
 
 function TaskNode({ data }: NodeProps<AppNode>) {
@@ -35,28 +28,28 @@ function TaskNode({ data }: NodeProps<AppNode>) {
       : ''
 
   const selectedRing = isSelected
-    ? 'ring-2 ring-indigo-500 ring-offset-2'
+    ? 'ring-2 ring-[#5e6ad2] ring-offset-2 ring-offset-[#08090a]'
     : ''
 
   const criticalGlow = isCritical && isFiltered && !isSelected
-    ? 'shadow-md shadow-amber-100'
+    ? 'shadow-[0_0_12px_rgba(217,119,6,0.15)]'
     : ''
 
   return (
     <div
       className={`
-        relative bg-white rounded-lg border border-zinc-200 border-l-[3px] ${PHASE_BORDER[task.phase]}
-        shadow-sm p-2.5 w-[190px] min-h-[72px]
+        relative bg-[rgba(255,255,255,0.03)] rounded-lg border border-[rgba(255,255,255,0.08)] border-l-[3px] ${PHASE_BORDER[task.phase]}
+        p-2.5 w-[190px] min-h-[72px]
         flex flex-col justify-between
         ${selectedRing} ${dimClass} ${criticalGlow}
-        transition-all hover:shadow-md cursor-pointer
+        transition-all hover:bg-[rgba(255,255,255,0.05)] cursor-pointer
       `}
     >
       {/* Target handle (left) */}
       <Handle
         type="target"
         position={Position.Left}
-        className="!bg-zinc-300 !border-zinc-400 !w-2 !h-2"
+        className="!bg-[#62666d] !border-[#8a8f98] !w-2 !h-2"
       />
 
       {/* Header row */}
@@ -66,17 +59,17 @@ function TaskNode({ data }: NodeProps<AppNode>) {
           aria-label={task.status}
           title={task.status}
         />
-        <span className="text-[12px] font-semibold text-zinc-800 leading-tight line-clamp-2 flex-1">
+        <span className="text-[12px] font-[590] text-[#f7f8f8] leading-tight line-clamp-2 flex-1">
           {task.name}
         </span>
       </div>
 
       {/* Footer row */}
       <div className="mt-2 flex items-center justify-between">
-        <span className="text-[10px] text-zinc-400 truncate max-w-[90px] font-medium">{task.owner || '—'}</span>
+        <span className="text-[10px] text-[#62666d] truncate max-w-[90px] font-[510]">{task.owner || '—'}</span>
         <div className="flex items-center gap-1 shrink-0 ml-1">
           <PhaseBadge phase={task.phase} size="sm" />
-          <span className="text-[10px] font-semibold text-zinc-500 tabular-nums font-mono">
+          <span className="text-[10px] font-[590] text-[#8a8f98] tabular-nums font-mono">
             {task.duration}d
           </span>
         </div>
@@ -84,14 +77,14 @@ function TaskNode({ data }: NodeProps<AppNode>) {
 
       {/* Critical indicator */}
       {isCritical && isFiltered && (
-        <div className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-amber-400 border-2 border-white" />
+        <div className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-[#d97706] border-2 border-[#08090a]" />
       )}
 
       {/* Source handle (right) */}
       <Handle
         type="source"
         position={Position.Right}
-        className="!bg-zinc-300 !border-zinc-400 !w-2 !h-2"
+        className="!bg-[#62666d] !border-[#8a8f98] !w-2 !h-2"
       />
     </div>
   )

@@ -10,30 +10,30 @@ const STATUS_CONFIG: Record<
   { bg: string; text: string; dot: string; label: string; icon: string }
 > = {
   [TaskStatus.NotStarted]: {
-    bg: 'bg-zinc-50',
-    text: 'text-zinc-500',
-    dot: 'bg-zinc-300',
+    bg: 'bg-[rgba(255,255,255,0.04)]',
+    text: 'text-[#8a8f98]',
+    dot: 'bg-[#62666d]',
     label: 'Not Started',
     icon: '●',
   },
   [TaskStatus.InProgress]: {
-    bg: 'bg-blue-50',
-    text: 'text-blue-600',
-    dot: 'bg-blue-400',
+    bg: 'bg-[rgba(94,106,210,0.12)]',
+    text: 'text-[#828fff]',
+    dot: 'bg-[#7170ff]',
     label: 'In Progress',
     icon: '▶',
   },
   [TaskStatus.Complete]: {
-    bg: 'bg-emerald-50',
-    text: 'text-emerald-600',
-    dot: 'bg-emerald-400',
+    bg: 'bg-[rgba(39,166,68,0.12)]',
+    text: 'text-[#10b981]',
+    dot: 'bg-[#27a644]',
     label: 'Complete',
     icon: '✓',
   },
   [TaskStatus.Blocked]: {
-    bg: 'bg-red-50',
-    text: 'text-red-600',
-    dot: 'bg-red-400',
+    bg: 'bg-[rgba(239,68,68,0.12)]',
+    text: 'text-[#ef4444]',
+    dot: 'bg-[#ef4444]',
     label: 'Blocked',
     icon: '⚠',
   },
@@ -47,7 +47,7 @@ export default function StatusBadge({ status, size = 'md' }: StatusBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center rounded-md font-medium ${config.bg} ${config.text} ${sizeClass}`}
+      className={`inline-flex items-center rounded-md font-[510] ${config.bg} ${config.text} ${sizeClass}`}
       aria-label={config.label}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${config.dot} shrink-0`} aria-hidden="true" />

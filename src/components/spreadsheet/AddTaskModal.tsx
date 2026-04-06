@@ -10,8 +10,8 @@ interface AddTaskModalProps {
 }
 
 const inputClass =
-  'w-full border border-zinc-200 rounded-lg px-3 py-2 text-[13px] text-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 bg-white placeholder:text-zinc-300 transition-colors'
-const labelClass = 'block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1.5'
+  'w-full border border-[rgba(255,255,255,0.08)] rounded-md px-3 py-2 text-[13px] text-[#d0d6e0] focus:outline-none focus:ring-2 focus:ring-[#5e6ad2]/30 bg-[rgba(255,255,255,0.02)] placeholder:text-[#62666d] transition-colors'
+const labelClass = 'block text-[11px] font-[590] text-[#62666d] uppercase tracking-wider mb-1.5'
 
 export default function AddTaskModal({ onClose }: AddTaskModalProps) {
   const tasks = useNpiStore((s) => s.tasks)
@@ -47,15 +47,16 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/20 backdrop-blur-[2px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(0,0,0,0.85)]"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-xl shadow-zinc-200/50 border border-zinc-200/60 w-[520px] max-w-[95vw] max-h-[90vh] overflow-y-auto"
+        className="bg-[#191a1b] rounded-xl border border-[rgba(255,255,255,0.08)] w-[520px] max-w-[95vw] max-h-[90vh] overflow-y-auto"
+        style={{ boxShadow: 'rgba(0,0,0,0) 0px 8px 2px, rgba(0,0,0,0.01) 0px 5px 2px, rgba(0,0,0,0.04) 0px 3px 2px, rgba(0,0,0,0.07) 0px 1px 1px, rgba(0,0,0,0.08) 0px 0px 1px' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="px-6 py-4 border-b border-zinc-100">
-          <h2 className="text-[15px] font-semibold text-zinc-900 tracking-tight">Add task</h2>
+        <div className="px-6 py-4 border-b border-[rgba(255,255,255,0.05)]">
+          <h2 className="text-[15px] font-[590] text-[#f7f8f8] tracking-[-0.165px]">Add task</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
@@ -149,22 +150,22 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
           {tasks.length > 0 && (
             <div>
               <label className={labelClass}>
-                Dependencies <span className="text-zinc-300 font-normal normal-case tracking-normal">(predecessors)</span>
+                Dependencies <span className="text-[#62666d] font-normal normal-case tracking-normal">(predecessors)</span>
               </label>
-              <div className="max-h-36 overflow-y-auto border border-zinc-200 rounded-lg divide-y divide-zinc-50">
+              <div className="max-h-36 overflow-y-auto border border-[rgba(255,255,255,0.08)] rounded-lg divide-y divide-[rgba(255,255,255,0.03)]">
                 {tasks.map((t) => (
                   <label
                     key={t.id}
-                    className="flex items-center gap-2.5 px-3 py-2 hover:bg-zinc-50 cursor-pointer transition-colors"
+                    className="flex items-center gap-2.5 px-3 py-2 hover:bg-[rgba(255,255,255,0.03)] cursor-pointer transition-colors"
                   >
                     <input
                       type="checkbox"
                       checked={form.dependencies.includes(t.id)}
                       onChange={() => toggleDep(t.id)}
-                      className="h-3.5 w-3.5 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500/20"
+                      className="h-3.5 w-3.5 rounded border-[#34343a] text-[#5e6ad2] focus:ring-[#5e6ad2]/30 bg-[rgba(255,255,255,0.02)]"
                     />
-                    <span className="text-[11px] text-zinc-400 font-mono font-medium w-10 shrink-0">{t.id}</span>
-                    <span className="text-[13px] text-zinc-700 truncate">{t.name}</span>
+                    <span className="text-[11px] text-[#62666d] font-mono font-[510] w-10 shrink-0">{t.id}</span>
+                    <span className="text-[13px] text-[#d0d6e0] truncate">{t.name}</span>
                   </label>
                 ))}
               </div>
@@ -187,13 +188,13 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="px-3.5 py-1.5 text-[13px] rounded-lg border border-zinc-200 text-zinc-500 font-medium hover:bg-zinc-50 hover:text-zinc-700 transition-colors"
+              className="px-3.5 py-1.5 text-[13px] rounded-md border border-[rgba(255,255,255,0.08)] text-[#8a8f98] font-[510] hover:bg-[rgba(255,255,255,0.04)] hover:text-[#d0d6e0] transition-colors bg-[rgba(255,255,255,0.02)]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 text-[13px] rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors font-semibold shadow-sm shadow-indigo-200"
+              className="px-4 py-1.5 text-[13px] rounded-md bg-[#5e6ad2] text-white hover:bg-[#828fff] transition-colors font-[590]"
             >
               Add task
             </button>

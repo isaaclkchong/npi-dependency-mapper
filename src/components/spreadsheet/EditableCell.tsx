@@ -58,7 +58,7 @@ export default function EditableCell({
   if (!editing) {
     return (
       <div
-        className={`cursor-text rounded px-1 py-0.5 hover:bg-zinc-100/80 transition-colors min-h-[24px] ${className}`}
+        className={`cursor-text rounded px-1 py-0.5 hover:bg-[rgba(255,255,255,0.04)] transition-colors min-h-[24px] ${className}`}
         onClick={(e) => {
           e.stopPropagation()
           setEditing(true)
@@ -67,7 +67,7 @@ export default function EditableCell({
         {type === 'select-status' ? (
           <StatusBadge status={value as TaskStatus} />
         ) : (
-          <span className={!value ? 'text-zinc-300 text-[11px]' : ''}>
+          <span className={!value ? 'text-[#62666d] text-[11px]' : ''}>
             {value || placeholder || '—'}
           </span>
         )}
@@ -88,7 +88,7 @@ export default function EditableCell({
         onBlur={commit}
         onKeyDown={handleKeyDown}
         onClick={(e) => e.stopPropagation()}
-        className="text-[11px] rounded-md border border-indigo-300 bg-white px-1.5 py-0.5 outline-none focus:ring-2 focus:ring-indigo-500/20"
+        className="text-[11px] rounded-md border border-[rgba(255,255,255,0.08)] bg-[#191a1b] text-[#d0d6e0] px-1.5 py-0.5 outline-none focus:ring-2 focus:ring-[#5e6ad2]/30"
       >
         {STATUS_OPTIONS.map((s) => (
           <option key={s} value={s}>
@@ -110,7 +110,7 @@ export default function EditableCell({
       onClick={(e) => e.stopPropagation()}
       placeholder={placeholder}
       min={type === 'number' ? 1 : undefined}
-      className={`w-full rounded-md border border-indigo-300 bg-white px-1.5 py-0.5 text-[13px] outline-none focus:ring-2 focus:ring-indigo-500/20 ${className}`}
+      className={`w-full rounded-md border border-[rgba(255,255,255,0.08)] bg-[#191a1b] text-[#d0d6e0] px-1.5 py-0.5 text-[13px] outline-none focus:ring-2 focus:ring-[#5e6ad2]/30 ${className}`}
     />
   )
 }

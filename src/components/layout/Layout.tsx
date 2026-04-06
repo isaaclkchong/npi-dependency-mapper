@@ -8,7 +8,7 @@ export default function Layout() {
   const viewMode = useNpiStore((s) => s.viewMode)
 
   return (
-    <div className="h-screen flex flex-col bg-zinc-50 overflow-hidden">
+    <div className="h-screen flex flex-col bg-[#08090a] overflow-hidden">
       <Header />
       <main className="flex-1 overflow-hidden">
         {viewMode === ViewMode.Spreadsheet && <SpreadsheetView />}

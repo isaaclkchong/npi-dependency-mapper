@@ -1,10 +1,10 @@
 import type { Phase } from '@/types'
 
-const PHASE_STYLES: Record<Phase, { bg: string; text: string; ring: string }> = {
-  EVT: { bg: 'bg-sky-50', text: 'text-sky-700', ring: 'ring-sky-200' },
-  DVT: { bg: 'bg-violet-50', text: 'text-violet-700', ring: 'ring-violet-200' },
-  PVT: { bg: 'bg-amber-50', text: 'text-amber-700', ring: 'ring-amber-200' },
-  MP:  { bg: 'bg-emerald-50', text: 'text-emerald-700', ring: 'ring-emerald-200' },
+const PHASE_STYLES: Record<Phase, { bg: string; text: string; border: string }> = {
+  EVT: { bg: 'bg-[rgba(56,189,248,0.1)]', text: 'text-[#38bdf8]', border: 'border-[rgba(56,189,248,0.2)]' },
+  DVT: { bg: 'bg-[rgba(139,92,246,0.1)]', text: 'text-[#a78bfa]', border: 'border-[rgba(139,92,246,0.2)]' },
+  PVT: { bg: 'bg-[rgba(217,119,6,0.1)]', text: 'text-[#fbbf24]', border: 'border-[rgba(217,119,6,0.2)]' },
+  MP:  { bg: 'bg-[rgba(16,185,129,0.1)]', text: 'text-[#10b981]', border: 'border-[rgba(16,185,129,0.2)]' },
 }
 
 interface PhaseBadgeProps {
@@ -20,7 +20,7 @@ export default function PhaseBadge({ phase, size = 'md' }: PhaseBadgeProps) {
 
   return (
     <span
-      className={`inline-flex items-center rounded font-semibold tracking-wide ring-1 ring-inset ${sizeClass} ${s.bg} ${s.text} ${s.ring}`}
+      className={`inline-flex items-center rounded font-[590] tracking-wide border ${sizeClass} ${s.bg} ${s.text} ${s.border}`}
     >
       {phase}
     </span>

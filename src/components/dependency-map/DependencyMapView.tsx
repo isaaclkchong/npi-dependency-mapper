@@ -39,14 +39,12 @@ export default function DependencyMapView() {
 
   const [layoutKey, setLayoutKey] = useState(0)
 
-  // Compute layout positions
   const layoutPositions = useMemo(
     () => computeDagreLayout(tasks),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [tasks, layoutKey]
   )
 
-  // Build nodes
   const initialNodes = useMemo<AppNode[]>(
     () =>
       tasks.map((task) => ({
@@ -63,7 +61,6 @@ export default function DependencyMapView() {
     [tasks, layoutPositions, criticalTaskIds, selectedTaskId, phaseFilter]
   )
 
-  // Build edges
   const initialEdges = useMemo<AppEdge[]>(
     () =>
       tasks.flatMap((task) =>
@@ -76,7 +73,7 @@ export default function DependencyMapView() {
             const isCrossPhase =
               phaseFilter !== 'all' &&
               (srcTask?.phase !== phaseFilter || task.phase !== phaseFilter)
-            const edgeColor = isCrossPhase ? '#d4d4d8' : isCritical ? '#d97706' : '#a1a1aa'
+            const edgeColor = isCrossPhase ? '#34343a' : isCritical ? '#d97706' : '#62666d'
             return {
               id: edgeKey,
               source: depId,
@@ -99,7 +96,6 @@ export default function DependencyMapView() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
-  // Sync nodes/edges when store data changes
   useEffect(() => {
     setNodes(initialNodes)
   }, [initialNodes, setNodes])
@@ -125,13 +121,13 @@ export default function DependencyMapView() {
 
   if (tasks.length === 0) {
     return (
-      <div className="h-full flex items-center justify-center text-zinc-400">
+      <div className="h-full flex items-center justify-center text-[#62666d]">
         <div className="text-center">
-          <svg className="h-10 w-10 mx-auto mb-3 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-10 w-10 mx-auto mb-3 text-[#34343a]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <p className="text-[13px] font-medium">No tasks to display</p>
-          <p className="text-[11px] mt-1 text-zinc-300">Switch to Spreadsheet view to add tasks</p>
+          <p className="text-[13px] font-[510]">No tasks to display</p>
+          <p className="text-[11px] mt-1 text-[#62666d]">Switch to Spreadsheet view to add tasks</p>
         </div>
       </div>
     )
@@ -154,8 +150,9 @@ export default function DependencyMapView() {
         minZoom={0.2}
         maxZoom={2}
         attributionPosition="bottom-right"
+        style={{ background: '#08090a' }}
       >
-        <Background variant={BackgroundVariant.Dots} gap={20} size={0.8} color="#d4d4d8" />
+        <Background variant={BackgroundVariant.Dots} gap={20} size={0.8} color="#23252a" />
         <Controls showInteractive={false} />
         <MapControls onRelayout={handleRelayout} />
       </ReactFlow>

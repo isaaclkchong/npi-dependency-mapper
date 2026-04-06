@@ -34,7 +34,6 @@ export default function TaskTable({ tasks }: TaskTableProps) {
 
   const rowRefs = useRef<Map<string, HTMLTableRowElement>>(new Map())
 
-  // Scroll selected row into view when selection changes
   useEffect(() => {
     if (selectedTaskId) {
       const el = rowRefs.current.get(selectedTaskId)
@@ -47,7 +46,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
       header: 'ID',
       size: 72,
       cell: (info) => (
-        <span className="font-mono text-[11px] font-medium text-zinc-400">{info.getValue()}</span>
+        <span className="font-mono text-[11px] font-[510] text-[#62666d]">{info.getValue()}</span>
       ),
     }),
     columnHelper.accessor('phase', {
@@ -63,7 +62,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
           value={info.getValue()}
           type="text"
           onChange={(v) => updateTask(info.row.original.id, { name: v as string })}
-          className="font-medium text-zinc-800 w-full"
+          className="font-[510] text-[#f7f8f8] w-full"
           placeholder="Task name"
         />
       ),
@@ -88,7 +87,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
           type="text"
           onChange={(v) => updateTask(info.row.original.id, { owner: v as string })}
           placeholder="—"
-          className="text-zinc-600"
+          className="text-[#8a8f98]"
         />
       ),
     }),
@@ -104,7 +103,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
             value={val}
             type="date"
             onChange={(v) => updateTask(info.row.original.id, { dueDate: v as string })}
-            className={isOverdue ? 'text-red-600 font-medium' : 'text-zinc-600'}
+            className={isOverdue ? 'text-[#ef4444] font-[510]' : 'text-[#8a8f98]'}
             placeholder="—"
           />
         )
@@ -118,7 +117,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
           value={info.getValue()}
           type="number"
           onChange={(v) => updateTask(info.row.original.id, { duration: Number(v) })}
-          className="text-right tabular-nums text-zinc-600"
+          className="text-right tabular-nums text-[#8a8f98]"
         />
       ),
     }),
@@ -128,10 +127,10 @@ export default function TaskTable({ tasks }: TaskTableProps) {
       enableSorting: false,
       cell: (info) => {
         const deps = info.getValue()
-        if (deps.length === 0) return <span className="text-zinc-300 text-[11px]">—</span>
+        if (deps.length === 0) return <span className="text-[#62666d] text-[11px]">—</span>
         return (
           <span
-            className="text-[11px] text-zinc-500 font-mono font-medium bg-zinc-100 px-1.5 py-0.5 rounded"
+            className="text-[11px] text-[#8a8f98] font-mono font-[510] bg-[rgba(255,255,255,0.04)] px-1.5 py-0.5 rounded border border-[rgba(255,255,255,0.05)]"
             title={deps.join(', ')}
           >
             {deps.join(', ')}
@@ -148,7 +147,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
             e.stopPropagation()
             setDeleteTarget(info.row.original)
           }}
-          className="opacity-0 group-hover:opacity-100 text-zinc-300 hover:text-red-500 transition-all p-1 rounded"
+          className="opacity-0 group-hover:opacity-100 text-[#62666d] hover:text-[#ef4444] transition-all p-1 rounded"
           aria-label="Delete task"
           title="Delete task"
         >
@@ -173,25 +172,25 @@ export default function TaskTable({ tasks }: TaskTableProps) {
     <>
       <div className="overflow-auto h-full">
         <table className="w-full border-collapse text-[13px]">
-          <thead className="sticky top-0 z-10 bg-zinc-50/95 backdrop-blur-sm border-b border-zinc-200">
+          <thead className="sticky top-0 z-10 bg-[#0f1011]/95 backdrop-blur-sm border-b border-[rgba(255,255,255,0.08)]">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     style={{ width: header.getSize() }}
-                    className={`px-3 py-2 text-left text-[11px] font-semibold text-zinc-400 uppercase tracking-wider select-none ${
-                      header.column.getCanSort() ? 'cursor-pointer hover:text-zinc-600' : ''
+                    className={`px-3 py-2 text-left text-[11px] font-[590] text-[#62666d] uppercase tracking-wider select-none ${
+                      header.column.getCanSort() ? 'cursor-pointer hover:text-[#8a8f98]' : ''
                     }`}
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     <div className="flex items-center gap-1">
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {header.column.getIsSorted() === 'asc' && (
-                        <svg className="h-3 w-3 text-indigo-500" viewBox="0 0 16 16" fill="currentColor"><path d="M8 3l5 6H3z"/></svg>
+                        <svg className="h-3 w-3 text-[#7170ff]" viewBox="0 0 16 16" fill="currentColor"><path d="M8 3l5 6H3z"/></svg>
                       )}
                       {header.column.getIsSorted() === 'desc' && (
-                        <svg className="h-3 w-3 text-indigo-500" viewBox="0 0 16 16" fill="currentColor"><path d="M8 13l5-6H3z"/></svg>
+                        <svg className="h-3 w-3 text-[#7170ff]" viewBox="0 0 16 16" fill="currentColor"><path d="M8 13l5-6H3z"/></svg>
                       )}
                     </div>
                   </th>
@@ -199,7 +198,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
               </tr>
             ))}
           </thead>
-          <tbody className="bg-white">
+          <tbody className="bg-[#08090a]">
             {table.getRowModel().rows.map((row) => {
               const isSelected = row.original.id === selectedTaskId
               const isCritical = criticalTaskIds.has(row.original.id)
@@ -213,10 +212,10 @@ export default function TaskTable({ tasks }: TaskTableProps) {
                   onClick={() =>
                     setSelectedTask(isSelected ? null : row.original.id)
                   }
-                  className={`group border-b border-zinc-100 cursor-pointer transition-colors ${
+                  className={`group border-b border-[rgba(255,255,255,0.05)] cursor-pointer transition-colors ${
                     isSelected
-                      ? 'bg-indigo-50/60 ring-1 ring-inset ring-indigo-200'
-                      : 'hover:bg-zinc-50/80'
+                      ? 'bg-[rgba(94,106,210,0.08)] ring-1 ring-inset ring-[#5e6ad2]/30'
+                      : 'hover:bg-[rgba(255,255,255,0.02)]'
                   }`}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -224,7 +223,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
                       key={cell.id}
                       className={`px-3 py-2 ${
                         isCritical && cell.column.id === 'id'
-                          ? 'border-l-[3px] border-l-amber-400'
+                          ? 'border-l-[3px] border-l-[#d97706]'
                           : ''
                       }`}
                     >
@@ -236,7 +235,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
             })}
             {tasks.length === 0 && (
               <tr>
-                <td colSpan={columns.length} className="px-6 py-16 text-center text-zinc-400 text-[13px]">
+                <td colSpan={columns.length} className="px-6 py-16 text-center text-[#62666d] text-[13px]">
                   No tasks yet. Add a task to get started.
                 </td>
               </tr>
@@ -246,7 +245,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
       </div>
 
       {/* Status bar */}
-      <div className="shrink-0 px-4 py-2 border-t border-zinc-100 bg-white flex items-center gap-4 text-[11px] text-zinc-400 font-medium">
+      <div className="shrink-0 px-4 py-2 border-t border-[rgba(255,255,255,0.05)] bg-[#0f1011] flex items-center gap-4 text-[11px] text-[#62666d] font-[510]">
         {Object.values(TaskStatus).map((s) => {
           const count = tasks.filter((t) => t.status === s).length
           return (
