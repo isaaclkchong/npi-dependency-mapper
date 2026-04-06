@@ -4,11 +4,11 @@ import type { AppNode } from '@/types'
 import { TaskStatus } from '@/types'
 import PhaseBadge from '@/components/spreadsheet/PhaseBadge'
 
-const STATUS_COLORS: Record<TaskStatus, string> = {
-  [TaskStatus.NotStarted]: 'bg-slate-100 text-slate-600',
-  [TaskStatus.InProgress]: 'bg-blue-100 text-blue-700',
-  [TaskStatus.Complete]: 'bg-teal-100 text-teal-700',
-  [TaskStatus.Blocked]: 'bg-orange-100 text-orange-700',
+const STATUS_DOT: Record<TaskStatus, string> = {
+  [TaskStatus.NotStarted]: 'bg-zinc-300',
+  [TaskStatus.InProgress]: 'bg-blue-400',
+  [TaskStatus.Complete]: 'bg-emerald-400',
+  [TaskStatus.Blocked]: 'bg-red-400',
 }
 
 const STATUS_ICONS: Record<TaskStatus, string> = {
@@ -18,54 +18,65 @@ const STATUS_ICONS: Record<TaskStatus, string> = {
   [TaskStatus.Blocked]: '⚠',
 }
 
+const PHASE_BORDER: Record<string, string> = {
+  EVT: 'border-l-sky-400',
+  DVT: 'border-l-violet-400',
+  PVT: 'border-l-amber-400',
+  MP: 'border-l-emerald-400',
+}
+
 function TaskNode({ data }: NodeProps<AppNode>) {
   const { task, isCritical, isSelected, isFiltered } = data
 
-  let borderClass = 'border-gray-200'
-  if (!isFiltered) borderClass = 'border-gray-200'
-  else if (isCritical) borderClass = 'border-amber-400'
-  else if (task.status === TaskStatus.Blocked) borderClass = 'border-orange-400'
-  if (isSelected) borderClass = 'border-blue-500'
+  const dimClass = !isFiltered
+    ? 'opacity-35'
+    : task.status === TaskStatus.Complete
+      ? 'opacity-70'
+      : ''
 
-  const ringClass = isSelected ? 'ring-2 ring-blue-500 ring-offset-1' : ''
-  const dimClass = !isFiltered ? 'opacity-40' : task.status === TaskStatus.Complete ? 'opacity-75' : ''
+  const selectedRing = isSelected
+    ? 'ring-2 ring-indigo-500 ring-offset-2'
+    : ''
+
+  const criticalGlow = isCritical && isFiltered && !isSelected
+    ? 'shadow-md shadow-amber-100'
+    : ''
 
   return (
     <div
       className={`
-        relative bg-white rounded-lg border-2 shadow-sm p-2.5 w-[190px] min-h-[72px]
+        relative bg-white rounded-lg border border-zinc-200 border-l-[3px] ${PHASE_BORDER[task.phase]}
+        shadow-sm p-2.5 w-[190px] min-h-[72px]
         flex flex-col justify-between
-        ${borderClass} ${ringClass} ${dimClass}
-        transition-shadow hover:shadow-md cursor-pointer
+        ${selectedRing} ${dimClass} ${criticalGlow}
+        transition-all hover:shadow-md cursor-pointer
       `}
     >
       {/* Target handle (left) */}
       <Handle
         type="target"
         position={Position.Left}
-        className="!bg-gray-300 !border-gray-400 !w-2 !h-2"
+        className="!bg-zinc-300 !border-zinc-400 !w-2 !h-2"
       />
 
       {/* Header row */}
       <div className="flex items-start gap-1.5">
         <span
-          className={`mt-0.5 inline-flex items-center justify-center shrink-0 rounded-full text-[9px] font-semibold px-1 py-0.5 ${STATUS_COLORS[task.status]}`}
+          className={`mt-1 h-2 w-2 rounded-full shrink-0 ${STATUS_DOT[task.status]}`}
           aria-label={task.status}
           title={task.status}
-        >
-          {STATUS_ICONS[task.status]}
-        </span>
-        <span className="text-xs font-semibold text-gray-800 leading-tight line-clamp-2 flex-1">
+        />
+        <span className="text-[12px] font-semibold text-zinc-800 leading-tight line-clamp-2 flex-1">
           {task.name}
         </span>
       </div>
 
       {/* Footer row */}
-      <div className="mt-1.5 flex items-center justify-between">
-        <span className="text-[10px] text-gray-400 truncate max-w-[90px]">{task.owner || '—'}</span>
+      <div className="mt-2 flex items-center justify-between">
+        <span className="text-[10px] text-zinc-400 truncate max-w-[90px] font-medium">{task.owner || '—'}</span>
         <div className="flex items-center gap-1 shrink-0 ml-1">
           <PhaseBadge phase={task.phase} size="sm" />
-          <span className="text-[10px] font-medium text-gray-500">
+          <span className="text-[10px] font-semibold text-zinc-500 tabular-nums font-mono">
             {task.duration}d
           </span>
         </div>
@@ -73,14 +84,14 @@ function TaskNode({ data }: NodeProps<AppNode>) {
 
       {/* Critical indicator */}
       {isCritical && isFiltered && (
-        <div className="absolute -top-1.5 -right-1.5 h-3 w-3 rounded-full bg-amber-400 border-2 border-white" />
+        <div className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-amber-400 border-2 border-white" />
       )}
 
       {/* Source handle (right) */}
       <Handle
         type="source"
         position={Position.Right}
-        className="!bg-gray-300 !border-gray-400 !w-2 !h-2"
+        className="!bg-zinc-300 !border-zinc-400 !w-2 !h-2"
       />
     </div>
   )

@@ -18,21 +18,21 @@ export default function SpreadsheetView() {
   return (
     <div className="h-full flex flex-col">
       {/* Toolbar */}
-      <div className="shrink-0 px-4 py-2.5 bg-white border-b border-gray-200 flex items-center gap-3">
+      <div className="shrink-0 px-4 py-2 bg-white border-b border-zinc-200/80 flex items-center gap-3">
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-[12px] font-semibold rounded-lg hover:bg-indigo-700 transition-colors shadow-sm shadow-indigo-200"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
           Add task
         </button>
 
-        <div className="h-4 w-px bg-gray-200" />
+        <div className="h-4 w-px bg-zinc-200" />
 
-        <div className="flex items-center gap-1.5 text-xs text-gray-500">
-          <span className="inline-block h-3 w-0.5 bg-amber-400 rounded" />
+        <div className="flex items-center gap-1.5 text-[11px] font-medium text-zinc-400">
+          <span className="inline-block h-3 w-0.5 bg-amber-500 rounded-full" />
           Critical path
         </div>
 
@@ -40,7 +40,7 @@ export default function SpreadsheetView() {
         <select
           value={phaseFilter}
           onChange={(e) => setPhaseFilter(e.target.value as typeof phaseFilter)}
-          className="ml-2 border border-gray-200 rounded-lg px-2 py-1 text-xs text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          className="ml-1 border border-zinc-200 rounded-lg px-2 py-1 text-[11px] font-medium text-zinc-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 bg-white cursor-pointer"
           aria-label="Filter by phase"
         >
           <option value="all">All Phases</option>
@@ -50,8 +50,8 @@ export default function SpreadsheetView() {
         </select>
 
         {projectDuration > 0 && (
-          <span className="text-xs text-gray-400 ml-auto">
-            Project duration: <strong className="text-gray-700">{projectDuration} days</strong>
+          <span className="text-[11px] text-zinc-400 ml-auto font-medium tabular-nums">
+            Project duration: <strong className="text-zinc-700 font-semibold">{projectDuration} days</strong>
           </span>
         )}
       </div>

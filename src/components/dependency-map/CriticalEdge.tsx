@@ -30,8 +30,8 @@ function CriticalEdge({
   const isCritical = data?.isCritical ?? false
   const isCrossPhase = data?.isCrossPhase ?? false
 
-  const stroke = isCrossPhase ? '#d1d5db' : isCritical ? '#f59e0b' : '#9ca3af'
-  const strokeWidth = isCrossPhase ? 1.5 : isCritical ? 2.5 : 1.5
+  const stroke = isCrossPhase ? '#d4d4d8' : isCritical ? '#d97706' : '#a1a1aa'
+  const strokeWidth = isCrossPhase ? 1.2 : isCritical ? 2 : 1.2
   const strokeDasharray = isCrossPhase ? '5 3' : undefined
 
   return (

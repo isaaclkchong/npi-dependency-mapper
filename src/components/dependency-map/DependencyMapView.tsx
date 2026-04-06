@@ -76,7 +76,7 @@ export default function DependencyMapView() {
             const isCrossPhase =
               phaseFilter !== 'all' &&
               (srcTask?.phase !== phaseFilter || task.phase !== phaseFilter)
-            const edgeColor = isCrossPhase ? '#d1d5db' : isCritical ? '#f59e0b' : '#9ca3af'
+            const edgeColor = isCrossPhase ? '#d4d4d8' : isCritical ? '#d97706' : '#a1a1aa'
             return {
               id: edgeKey,
               source: depId,
@@ -125,13 +125,13 @@ export default function DependencyMapView() {
 
   if (tasks.length === 0) {
     return (
-      <div className="h-full flex items-center justify-center text-gray-400">
+      <div className="h-full flex items-center justify-center text-zinc-400">
         <div className="text-center">
-          <svg className="h-12 w-12 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-10 w-10 mx-auto mb-3 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
-          <p className="text-sm">No tasks to display</p>
-          <p className="text-xs mt-1 text-gray-300">Switch to Spreadsheet view to add tasks</p>
+          <p className="text-[13px] font-medium">No tasks to display</p>
+          <p className="text-[11px] mt-1 text-zinc-300">Switch to Spreadsheet view to add tasks</p>
         </div>
       </div>
     )
@@ -155,11 +155,8 @@ export default function DependencyMapView() {
         maxZoom={2}
         attributionPosition="bottom-right"
       >
-        <Background variant={BackgroundVariant.Dots} gap={24} size={1} color="#e5e7eb" />
-        <Controls
-          className="!border-gray-200 !shadow-sm !rounded-lg overflow-hidden"
-          showInteractive={false}
-        />
+        <Background variant={BackgroundVariant.Dots} gap={20} size={0.8} color="#d4d4d8" />
+        <Controls showInteractive={false} />
         <MapControls onRelayout={handleRelayout} />
       </ReactFlow>
     </div>

@@ -9,6 +9,10 @@ interface AddTaskModalProps {
   onClose: () => void
 }
 
+const inputClass =
+  'w-full border border-zinc-200 rounded-lg px-3 py-2 text-[13px] text-zinc-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 bg-white placeholder:text-zinc-300 transition-colors'
+const labelClass = 'block text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-1.5'
+
 export default function AddTaskModal({ onClose }: AddTaskModalProps) {
   const tasks = useNpiStore((s) => s.tasks)
   const addTask = useNpiStore((s) => s.addTask)
@@ -43,27 +47,27 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-900/20 backdrop-blur-[2px]"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-xl shadow-xl w-[520px] max-w-[95vw] max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-xl shadow-xl shadow-zinc-200/50 border border-zinc-200/60 w-[520px] max-w-[95vw] max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="text-base font-semibold text-gray-900">Add task</h2>
+        <div className="px-6 py-4 border-b border-zinc-100">
+          <h2 className="text-[15px] font-semibold text-zinc-900 tracking-tight">Add task</h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="px-6 py-4 space-y-4">
+        <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
           {/* Name */}
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Task name *</label>
+            <label className={labelClass}>Task name *</label>
             <input
               type="text"
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={inputClass}
               placeholder="e.g. Component sourcing"
               autoFocus
             />
@@ -71,11 +75,11 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
 
           {/* Phase */}
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Phase</label>
+            <label className={labelClass}>Phase</label>
             <select
               value={form.phase}
               onChange={(e) => setForm({ ...form, phase: e.target.value as Phase })}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={inputClass}
             >
               {PHASES.map((p) => (
                 <option key={p} value={p}>{p}</option>
@@ -86,11 +90,11 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
           {/* Status + Owner */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Status</label>
+              <label className={labelClass}>Status</label>
               <select
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as TaskStatus })}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputClass}
               >
                 {Object.values(TaskStatus).map((s) => (
                   <option key={s} value={s}>{s}</option>
@@ -98,12 +102,12 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Owner</label>
+              <label className={labelClass}>Owner</label>
               <input
                 type="text"
                 value={form.owner}
                 onChange={(e) => setForm({ ...form, owner: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputClass}
                 placeholder="e.g. Jane Smith"
               />
             </div>
@@ -112,31 +116,31 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
           {/* Dates + Duration */}
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Start date</label>
+              <label className={labelClass}>Start date</label>
               <input
                 type="date"
                 value={form.startDate}
                 onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputClass}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Due date</label>
+              <label className={labelClass}>Due date</label>
               <input
                 type="date"
                 value={form.dueDate}
                 onChange={(e) => setForm({ ...form, dueDate: e.target.value })}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputClass}
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">Duration (days)</label>
+              <label className={labelClass}>Duration (days)</label>
               <input
                 type="number"
                 min={1}
                 value={form.duration}
                 onChange={(e) => setForm({ ...form, duration: Number(e.target.value) })}
-                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className={inputClass}
               />
             </div>
           </div>
@@ -144,23 +148,23 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
           {/* Dependencies */}
           {tasks.length > 0 && (
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
-                Dependencies <span className="text-gray-400 font-normal">(predecessors)</span>
+              <label className={labelClass}>
+                Dependencies <span className="text-zinc-300 font-normal normal-case tracking-normal">(predecessors)</span>
               </label>
-              <div className="max-h-36 overflow-y-auto border border-gray-200 rounded-lg divide-y divide-gray-100">
+              <div className="max-h-36 overflow-y-auto border border-zinc-200 rounded-lg divide-y divide-zinc-50">
                 {tasks.map((t) => (
                   <label
                     key={t.id}
-                    className="flex items-center gap-2.5 px-3 py-2 hover:bg-gray-50 cursor-pointer"
+                    className="flex items-center gap-2.5 px-3 py-2 hover:bg-zinc-50 cursor-pointer transition-colors"
                   >
                     <input
                       type="checkbox"
                       checked={form.dependencies.includes(t.id)}
                       onChange={() => toggleDep(t.id)}
-                      className="h-3.5 w-3.5 rounded border-gray-300 text-blue-600"
+                      className="h-3.5 w-3.5 rounded border-zinc-300 text-indigo-600 focus:ring-indigo-500/20"
                     />
-                    <span className="text-xs text-gray-500 font-mono w-10 shrink-0">{t.id}</span>
-                    <span className="text-sm text-gray-700 truncate">{t.name}</span>
+                    <span className="text-[11px] text-zinc-400 font-mono font-medium w-10 shrink-0">{t.id}</span>
+                    <span className="text-[13px] text-zinc-700 truncate">{t.name}</span>
                   </label>
                 ))}
               </div>
@@ -169,27 +173,27 @@ export default function AddTaskModal({ onClose }: AddTaskModalProps) {
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-medium text-gray-600 mb-1">Notes</label>
+            <label className={labelClass}>Notes</label>
             <textarea
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={2}
-              className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className={`${inputClass} resize-none`}
               placeholder="Optional notes..."
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-1">
+          <div className="flex justify-end gap-2 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-3 py-1.5 text-sm rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors"
+              className="px-3.5 py-1.5 text-[13px] rounded-lg border border-zinc-200 text-zinc-500 font-medium hover:bg-zinc-50 hover:text-zinc-700 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-1.5 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors font-medium"
+              className="px-4 py-1.5 text-[13px] rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-colors font-semibold shadow-sm shadow-indigo-200"
             >
               Add task
             </button>

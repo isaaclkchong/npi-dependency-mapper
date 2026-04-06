@@ -47,7 +47,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
       header: 'ID',
       size: 72,
       cell: (info) => (
-        <span className="font-mono text-xs text-gray-400">{info.getValue()}</span>
+        <span className="font-mono text-[11px] font-medium text-zinc-400">{info.getValue()}</span>
       ),
     }),
     columnHelper.accessor('phase', {
@@ -63,7 +63,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
           value={info.getValue()}
           type="text"
           onChange={(v) => updateTask(info.row.original.id, { name: v as string })}
-          className="font-medium text-gray-900 w-full"
+          className="font-medium text-zinc-800 w-full"
           placeholder="Task name"
         />
       ),
@@ -88,6 +88,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
           type="text"
           onChange={(v) => updateTask(info.row.original.id, { owner: v as string })}
           placeholder="—"
+          className="text-zinc-600"
         />
       ),
     }),
@@ -103,7 +104,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
             value={val}
             type="date"
             onChange={(v) => updateTask(info.row.original.id, { dueDate: v as string })}
-            className={isOverdue ? 'text-red-600' : ''}
+            className={isOverdue ? 'text-red-600 font-medium' : 'text-zinc-600'}
             placeholder="—"
           />
         )
@@ -117,7 +118,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
           value={info.getValue()}
           type="number"
           onChange={(v) => updateTask(info.row.original.id, { duration: Number(v) })}
-          className="text-right"
+          className="text-right tabular-nums text-zinc-600"
         />
       ),
     }),
@@ -127,10 +128,10 @@ export default function TaskTable({ tasks }: TaskTableProps) {
       enableSorting: false,
       cell: (info) => {
         const deps = info.getValue()
-        if (deps.length === 0) return <span className="text-gray-400 text-xs">—</span>
+        if (deps.length === 0) return <span className="text-zinc-300 text-[11px]">—</span>
         return (
           <span
-            className="text-xs text-gray-600 font-mono bg-gray-100 px-1.5 py-0.5 rounded"
+            className="text-[11px] text-zinc-500 font-mono font-medium bg-zinc-100 px-1.5 py-0.5 rounded"
             title={deps.join(', ')}
           >
             {deps.join(', ')}
@@ -147,11 +148,11 @@ export default function TaskTable({ tasks }: TaskTableProps) {
             e.stopPropagation()
             setDeleteTarget(info.row.original)
           }}
-          className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-all p-1 rounded"
+          className="opacity-0 group-hover:opacity-100 text-zinc-300 hover:text-red-500 transition-all p-1 rounded"
           aria-label="Delete task"
           title="Delete task"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
           </svg>
         </button>
@@ -171,26 +172,26 @@ export default function TaskTable({ tasks }: TaskTableProps) {
   return (
     <>
       <div className="overflow-auto h-full">
-        <table className="w-full border-collapse text-sm">
-          <thead className="sticky top-0 z-10 bg-white border-b border-gray-200">
+        <table className="w-full border-collapse text-[13px]">
+          <thead className="sticky top-0 z-10 bg-zinc-50/95 backdrop-blur-sm border-b border-zinc-200">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
                     style={{ width: header.getSize() }}
-                    className={`px-3 py-2.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide select-none ${
-                      header.column.getCanSort() ? 'cursor-pointer hover:bg-gray-50' : ''
+                    className={`px-3 py-2 text-left text-[11px] font-semibold text-zinc-400 uppercase tracking-wider select-none ${
+                      header.column.getCanSort() ? 'cursor-pointer hover:text-zinc-600' : ''
                     }`}
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     <div className="flex items-center gap-1">
                       {flexRender(header.column.columnDef.header, header.getContext())}
                       {header.column.getIsSorted() === 'asc' && (
-                        <span className="text-blue-500">↑</span>
+                        <svg className="h-3 w-3 text-indigo-500" viewBox="0 0 16 16" fill="currentColor"><path d="M8 3l5 6H3z"/></svg>
                       )}
                       {header.column.getIsSorted() === 'desc' && (
-                        <span className="text-blue-500">↓</span>
+                        <svg className="h-3 w-3 text-indigo-500" viewBox="0 0 16 16" fill="currentColor"><path d="M8 13l5-6H3z"/></svg>
                       )}
                     </div>
                   </th>
@@ -198,7 +199,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className="bg-white">
             {table.getRowModel().rows.map((row) => {
               const isSelected = row.original.id === selectedTaskId
               const isCritical = criticalTaskIds.has(row.original.id)
@@ -212,10 +213,10 @@ export default function TaskTable({ tasks }: TaskTableProps) {
                   onClick={() =>
                     setSelectedTask(isSelected ? null : row.original.id)
                   }
-                  className={`group border-b border-gray-100 cursor-pointer transition-colors ${
+                  className={`group border-b border-zinc-100 cursor-pointer transition-colors ${
                     isSelected
-                      ? 'bg-blue-50 ring-1 ring-inset ring-blue-300'
-                      : 'hover:bg-gray-50'
+                      ? 'bg-indigo-50/60 ring-1 ring-inset ring-indigo-200'
+                      : 'hover:bg-zinc-50/80'
                   }`}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -223,7 +224,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
                       key={cell.id}
                       className={`px-3 py-2 ${
                         isCritical && cell.column.id === 'id'
-                          ? 'border-l-[3px] border-amber-400'
+                          ? 'border-l-[3px] border-l-amber-400'
                           : ''
                       }`}
                     >
@@ -235,7 +236,7 @@ export default function TaskTable({ tasks }: TaskTableProps) {
             })}
             {tasks.length === 0 && (
               <tr>
-                <td colSpan={columns.length} className="px-6 py-12 text-center text-gray-400 text-sm">
+                <td colSpan={columns.length} className="px-6 py-16 text-center text-zinc-400 text-[13px]">
                   No tasks yet. Add a task to get started.
                 </td>
               </tr>
@@ -245,17 +246,17 @@ export default function TaskTable({ tasks }: TaskTableProps) {
       </div>
 
       {/* Status bar */}
-      <div className="shrink-0 px-4 py-2 border-t border-gray-100 bg-white flex items-center gap-4 text-xs text-gray-400">
+      <div className="shrink-0 px-4 py-2 border-t border-zinc-100 bg-white flex items-center gap-4 text-[11px] text-zinc-400 font-medium">
         {Object.values(TaskStatus).map((s) => {
           const count = tasks.filter((t) => t.status === s).length
           return (
-            <span key={s} className="flex items-center gap-1">
+            <span key={s} className="flex items-center gap-1.5">
               <StatusBadge status={s} size="sm" />
-              <span>{count}</span>
+              <span className="tabular-nums">{count}</span>
             </span>
           )
         })}
-        <span className="ml-auto">{criticalTaskIds.size} critical path tasks</span>
+        <span className="ml-auto tabular-nums">{criticalTaskIds.size} critical path tasks</span>
       </div>
 
       {deleteTarget && (
